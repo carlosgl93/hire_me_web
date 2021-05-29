@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                         fit: BoxFit.contain,
-                        image: AssetImage('images/profilepicture.png'))),
+                        image:
+                            NetworkImage('assets/images/profilepicture.png'))),
               ),
               Padding(
                 padding: EdgeInsets.all(20),
