@@ -3,6 +3,7 @@ import 'dart:js' as js;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:hire_me/navLink.dart';
 import 'package:hire_me/socialButton.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,6 +14,18 @@ class HomePage extends StatelessWidget {
         title: Text('Carlos Gumucio'),
         centerTitle: true,
       ),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('More from me')),
+          NavLink(title: 'Todo List', route: '')
+        ],
+      )),
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -40,8 +53,11 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(10),
                 ),
-                Text(
-                  'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones móviles, web y desktop.',
+                Container(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones móviles, web y desktop.',
+                  ),
                 ),
                 SizedBox(
                   height: 30,
