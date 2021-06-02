@@ -15,7 +15,7 @@ class NavLink extends StatelessWidget {
           // go to route ... Navigator.push(context, route)
           Navigator.pushNamed(context, route);
           // close the nav after navigating
-          Navigator.pop(context);
+          // Navigator.pop(context);
         });
   }
 }
