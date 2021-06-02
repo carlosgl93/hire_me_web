@@ -23,7 +23,8 @@ class HomePage extends StatelessWidget {
                 color: Colors.blue,
               ),
               child: Text('More from me')),
-          NavLink(title: 'Todo List', route: '')
+          NavLink(title: 'Todo List', route: '/todoList'),
+          NavLink(title: 'NodeJs API', route: '/nodeJs'),
         ],
       )),
       body: SingleChildScrollView(
