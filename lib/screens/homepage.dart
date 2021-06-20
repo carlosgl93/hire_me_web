@@ -1,10 +1,6 @@
-import 'dart:html' as html;
-import 'dart:js' as js;
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
-import 'package:hire_me/navLink.dart';
-import 'package:hire_me/socialButton.dart';
+import 'package:hire_me/widgets/navLink.dart';
+import 'package:hire_me/widgets/socialButton.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -22,9 +18,13 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('More from me')),
+              child: Text('More from me',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+          NavLink(title: 'What can I do for you?', route: '/solution'),
+          NavLink(title: 'Expense Tracker', route: '/expenseTracker'),
           NavLink(title: 'Todo List', route: '/todoList'),
           NavLink(title: 'NodeJs API', route: '/nodeJs'),
+          NavLink(title: 'Image Uploader', route: '/imageUploader'),
         ],
       )),
       body: SingleChildScrollView(

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869732855518",
+    "project_id": "cgl-portfolio",
+    "storage_bucket": "cgl-portfolio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869732855518:android:d2594506de21d5502d1c4f",
+        "android_client_info": {
+          "package_name": "com.example.hire_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869732855518-1iempol4nie9t95g62t4tog78kp81fg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaJesXkjBY-wY3Iz12JSkV39SbbMU8ng4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869732855518-1iempol4nie9t95g62t4tog78kp81fg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
