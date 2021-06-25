@@ -20,23 +20,31 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // MediaQuery object variable
+    final mq = MediaQuery.of(context);
     return SizedBox(
-        width: 300,
+        width: mq.size.width * 0.8,
         child: TextButton(
             onPressed: () => _launchURL(url),
             child: Center(
                 child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(icon, color: iconColor, size: 40),
+                Icon(icon, color: iconColor, size: mq.size.width * 0.1),
                 SizedBox(
-                  width: 20,
+                  width: mq.size.width * 0.05,
                 ),
                 Expanded(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(label, style: Theme.of(context).textTheme.headline2),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: mq.textScaleFactor * 20,
+                        color: Color.fromRGBO(0, 0, 0, 1),
+                      ),
+                    )
                   ],
                 ))
               ],

@@ -25,6 +25,7 @@ dependencies:
   google_fonts: ^2.0.0
   file_picker: ^3.0.2+2
   intl: ^0.17.0
+  universal_io: ^2.0.4
   
 dev_dependencies:
   flutter_test:
@@ -43,4 +44,20 @@ flutter:
 
   assets:
     - assets/images/
+
+fonts:
+    - family: Lemonada
+      fonts: 
+        - asset: assets/fonts/Lemonada-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lemonada-Medium.ttf
+        - asset: assets/fonts/Lemonada-Regular.ttf
+    - family: Kufam
+      fonts: 
+        - asset: assets/fonts/Kufam-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Kufam-Medium.ttf
+        - asset: assets/fonts/Kufam-Regular.ttf
+        
+
  
