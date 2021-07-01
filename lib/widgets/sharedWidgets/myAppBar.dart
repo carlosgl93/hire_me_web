@@ -1,43 +1,43 @@
-// import 'package:universal_io/io.dart';
+import 'package:universal_io/io.dart';
 
-// import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-// class MyAppBar extends StatelessWidget {
-//   final String title;
-//   final Function appBarAction;
+class MyMaterialAppBar extends StatelessWidget with PreferredSizeWidget {
+  final String title;
+  final Function appBarAction;
 
-//   MyAppBar(this.title, this.appBarAction);
+  MyMaterialAppBar(this.title, this.appBarAction);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final mq = MediaQuery.of(context);
-//     final isLandscape = mq.orientation == Orientation.landscape;
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
-//     //PreferredSizeWidget type to avoid error of preferredsizewidget
-//     final PreferredSizeWidget appBar = (Platform.isIOS
-//         ? CupertinoNavigationBar(
-//             middle: Text(
-//               title,
-//             ),
-//             trailing: CupertinoButton(
-//               alignment: Alignment.center,
-//               child: Icon(CupertinoIcons.add),
-//               onPressed: () => _startAddNewTransaction(context),
-//             ),
-//           )
-//         : AppBar(
-//             title: Text(
-//               title,
-//             ),
-//             centerTitle: true,
-//             actions: [
-//               IconButton(
-//                 onPressed: () => _startAddNewTransaction(context),
-//                 icon: Icon(Icons.add),
-//               ),
-//             ],
-//           )) as PreferredSizeWidget;
-//     return appBar;
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text(
+              title,
+            ),
+            trailing: CupertinoButton(
+              alignment: Alignment.center,
+              child: Icon(CupertinoIcons.add),
+              onPressed: () => appBarAction,
+            ),
+          )
+        : AppBar(
+            title: Text(
+              title,
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () => appBarAction,
+                icon: Icon(
+                  Icons.add,
+                ),
+              ),
+            ],
+          );
+  }
+}

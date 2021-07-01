@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:universal_io/io.dart';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -54,6 +57,10 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    return buildNewTransaction(context);
+  }
+
+  SingleChildScrollView buildNewTransaction(BuildContext context) {
     return SingleChildScrollView(
       child: Card(
         child: Container(
@@ -112,25 +119,45 @@ class _NewTransactionState extends State<NewTransaction> {
                     ),
                     Container(
                       height: 40,
-                      child: TextButton(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            _selectedDate == null
-                                ? 'Choose Date'
-                                : 'Change Chosen Date',
-                            style: TextStyle(
-                              color: Colors.white,
+                      child: Platform.isIOS
+                          ? CupertinoButton(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  _selectedDate == null
+                                      ? 'Choose Date'
+                                      : 'Change Chosen Date',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              onPressed: _presentDatePicker,
+                              padding: EdgeInsets.all(5),
+                              color: CupertinoTheme.of(context)
+                                  .primaryContrastingColor,
+                            )
+                          : TextButton(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  _selectedDate == null
+                                      ? 'Choose Date'
+                                      : 'Change Chosen Date',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              onPressed: _presentDatePicker,
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.all(5)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Theme.of(context).accentColor)),
                             ),
-                          ),
-                        ),
-                        onPressed: _presentDatePicker,
-                        style: ButtonStyle(
-                            padding:
-                                MaterialStateProperty.all(EdgeInsets.all(5)),
-                            backgroundColor: MaterialStateProperty.all(
-                                Theme.of(context).accentColor)),
-                      ),
                     ),
                   ]),
                 ),

@@ -85,6 +85,57 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
         });
   }
 
+// optimizing the main build method extracting between landscape and portrait
+  Widget _buildLandscapeContent(MediaQueryData mq, PreferredSizeWidget appBar,
+      Widget transactionListWidget) {
+    // toggle chart shown or not
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Text('Show Chart',
+              style: TextStyle(
+                fontSize: mq.textScaleFactor * 15,
+                fontWeight: FontWeight.bold,
+              )),
+        ),
+        Switch.adaptive(
+          value: _showChart,
+          onChanged: (val) {
+            setState(() {
+              _showChart = val;
+            });
+          },
+        ),
+        _showChart
+            ? Container(
+                height: mq.size.height * 0.9,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    Chart(_recentTransactions),
+                    transactionListWidget,
+                  ]),
+                ),
+              )
+            : transactionListWidget
+      ],
+    );
+  }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mq,
+      PreferredSizeWidget appBar, Widget transactionListWidget) {
+    return [
+      Container(
+        height:
+            (mq.size.height - appBar.preferredSize.height - mq.padding.bottom) *
+                0.4,
+        child: Chart(_recentTransactions),
+      ),
+      transactionListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
@@ -95,16 +146,25 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
         ? CupertinoNavigationBar(
             middle: Text(
               'Expense Tracker',
+              style: TextStyle(color: Colors.white),
             ),
             trailing: CupertinoButton(
+              padding: EdgeInsets.only(bottom: mq.size.height * 0.005),
               alignment: Alignment.center,
-              child: Icon(CupertinoIcons.add),
+              child: Icon(
+                CupertinoIcons.add,
+                color: Colors.white,
+              ),
               onPressed: () => _startAddNewTransaction(context),
             ),
           )
         : AppBar(
             title: Text(
               'Expense Tracker',
+              style: TextStyle(
+                fontSize: mq.textScaleFactor * 15,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             centerTitle: true,
             actions: [
@@ -131,46 +191,15 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (isLandscape)
-              // toggle chart shown or not
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Show Chart',
-                      style: TextStyle(
-                        fontSize: mq.textScaleFactor * 1,
-                      )),
-                  Switch.adaptive(
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
+              _buildLandscapeContent(mq, appBar, transactionListWidget),
             // chart container
             if (!isLandscape)
-              Container(
-                height: (mq.size.height -
-                        appBar.preferredSize.height -
-                        mq.padding.bottom) *
-                    0.4,
-                child: Chart(_recentTransactions),
+              ..._buildPortraitContent(
+                mq,
+                appBar,
+                // transaction lists
+                transactionListWidget,
               ),
-            // transaction lists
-            if (!isLandscape) transactionListWidget,
-
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: (mq.size.height -
-                              appBar.preferredSize.height -
-                              mq.padding.top) *
-                          0.7,
-                      child: Chart(_recentTransactions),
-                    )
-                  : transactionListWidget
           ],
         ),
       ),

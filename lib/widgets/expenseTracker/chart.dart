@@ -38,28 +38,61 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        elevation: 6,
-        margin: EdgeInsets.all(20),
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: groupedTransactionValues.map((data) {
-              return Expanded(
-                child: ChartBar(
-                  (data['day'] as String),
-                  (data['amount'] as double),
-                  totalSpending == 0.0
-                      ? 0.0
-                      : (data['amount'] as double) / totalSpending,
+    final mq = MediaQuery.of(context);
+    final isLandscape = mq.orientation == Orientation.landscape;
+
+    return isLandscape
+        // if is landscape return ...
+        ? Container(
+            height: mq.size.height * 0.4,
+            width: mq.size.width * 0.8,
+            child: Card(
+              elevation: 6,
+              margin: EdgeInsets.all(20),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: groupedTransactionValues.map((data) {
+                    return Expanded(
+                      child: ChartBar(
+                        (data['day'] as String),
+                        (data['amount'] as double),
+                        totalSpending == 0.0
+                            ? 0.0
+                            : (data['amount'] as double) / totalSpending,
+                      ),
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
-          ),
-        ),
-      ),
-    );
+              ),
+            ),
+          )
+        // if it is portrait return...
+        : Container(
+            height: mq.size.height * 0.4,
+            width: mq.size.width * 0.8,
+            child: Card(
+              elevation: 6,
+              margin: EdgeInsets.all(20),
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: groupedTransactionValues.map((data) {
+                    return Expanded(
+                      child: ChartBar(
+                        (data['day'] as String),
+                        (data['amount'] as double),
+                        totalSpending == 0.0
+                            ? 0.0
+                            : (data['amount'] as double) / totalSpending,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          );
   }
 }

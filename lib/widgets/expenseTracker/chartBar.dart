@@ -9,22 +9,44 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    final isLandscape = mq.orientation == Orientation.landscape;
     return LayoutBuilder(
       builder: (context, constraint) {
         return Column(
           children: [
             // top amount spent for that day text
-            Container(
-              height: constraint.maxHeight * 0.1,
-              width: constraint.maxHeight * 1,
-              child: FittedBox(
-                child: Text(
-                  '\$${spendingAmount.toStringAsFixed(0)}',
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).textScaleFactor * 0.7),
-                ),
-              ),
-            ),
+            isLandscape
+                ? Container(
+                    // constraints: BoxConstraints.tight(
+                    //   Size.fromHeight(mq.size.height * 0.8),
+                    // ),
+                    height: constraint.maxHeight * 0.1,
+                    // width: constraint.maxWidth * 1,
+                    child: FittedBox(
+                      child: Text(
+                        '\$${spendingAmount.toStringAsFixed(0)}',
+                        style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).textScaleFactor * 0.7),
+                      ),
+                    ),
+                  )
+                : Container(
+                    // constraints: BoxConstraints.tight(
+                    //   Size.fromHeight(mq.size.height * 0.8),
+                    // ),
+                    height: constraint.maxHeight * 0.1,
+                    width: constraint.maxWidth * 0.9,
+                    child: FittedBox(
+                      child: Text(
+                        '\$${spendingAmount.toStringAsFixed(0)}',
+                        style: TextStyle(
+                            fontSize:
+                                MediaQuery.of(context).textScaleFactor * 0.7),
+                      ),
+                    ),
+                  ),
             // some space to separate
             SizedBox(
               height: constraint.maxHeight * 0.05,

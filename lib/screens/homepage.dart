@@ -14,195 +14,268 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // responsiveness variable:
     final mq = MediaQuery.of(context);
-    final isLandscape = mq.orientation == Orientation.landscape;
 
-    //PreferredSizeWidget type to avoid error of preferredsizewidget
+    // //PreferredSizeWidget type to avoid error of preferredsizewidget
     final PreferredSizeWidget appBar = (Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text(
               'Carlos Gumucio Labbé',
+              style: TextStyle(
+                color: Colors.blueGrey,
+              ),
             ),
           )
         : AppBar(
             title: Text(
               'Carlos Gumucio Labbé',
+              style: TextStyle(
+                fontSize: mq.textScaleFactor * 20,
+                color: Colors.white,
+              ),
             ),
             centerTitle: true,
           )) as PreferredSizeWidget;
 
-    // Home body. profile and social links
+    // // Home body. profile and social links
 
     // adaptive scaffold
 
     final Widget adaptiveScaffold = Platform.isIOS
-        ? CupertinoPageScaffold(
-            navigationBar: appBar as ObstructingPreferredSizeWidget,
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: mq.size.height,
-                      maxWidth: mq.size.width,
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(20),
-                        ),
-                        Container(
-                          height: (mq.size.height -
-                                  appBar.preferredSize.height -
-                                  mq.padding.top) *
-                              0.3,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: AssetImage(
-                                  './assets/images/profilepicture.png'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: mq.viewPadding * 0.1,
-                        ),
-                        Text(
-                          'Acerca de mi:',
-                          style: TextStyle(
-                            fontSize: mq.textScaleFactor * 25,
-                          ),
-                        ),
-                        SizedBox(
-                          height: mq.size.height * 0.0100,
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(mq.size.height * 0.02),
-                          padding: mq.viewPadding * 0.1,
-                          child: Text(
-                            'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones móviles, web y desktop.',
-                          ),
-                        ),
-                        SizedBox(
-                          height: mq.size.height * 0.025,
-                        ),
-                        SocialButton(
-                            icon: Icons.laptop,
-                            iconColor: Colors.black,
-                            label: 'Mi Github'),
-                        SizedBox(
-                          height: mq.size.height * 0.05,
-                        ),
-                        SocialButton(
-                            url: 'https://www.instagram.com/canogumucio/',
-                            icon: Icons.photo_camera,
-                            iconColor: Colors.orange,
-                            label: 'Mi instagram'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        : Scaffold(
-            appBar: appBar,
-            drawer: Drawer(
-                child: Container(
-              constraints: BoxConstraints(
-                maxWidth: mq.size.width * 0.7,
-              ),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: Text(
-                      'More from me',
-                      style: TextStyle(
-                        color: Theme.of(context).buttonColor,
-                        fontSize: mq.textScaleFactor * 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  NavLink(title: 'What can I do for you?', route: '/solution'),
-                  NavLink(title: 'Expense Tracker', route: '/expenseTracker'),
-                  NavLink(title: 'Todo List', route: '/todoList'),
-                  NavLink(title: 'NodeJs API', route: '/nodeJs'),
-                  NavLink(title: 'Image Uploader', route: '/imageUploader'),
-                ],
-              ),
-            )),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxHeight: mq.size.height,
-                      maxWidth: mq.size.width,
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(20),
-                        ),
-                        Container(
-                          height: (mq.size.height -
-                                  appBar.preferredSize.height -
-                                  mq.padding.top) *
-                              0.3,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: AssetImage(
-                                  './assets/images/profilepicture.png'),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: mq.viewPadding * 0.1,
-                        ),
-                        Text(
-                          'Acerca de mi:',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        Padding(
-                          padding: mq.viewPadding * 0.1,
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(mq.size.height * 0.02),
-                          padding: mq.viewPadding * 0.1,
-                          child: Text(
-                            'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones móviles, web y desktop.',
-                          ),
-                        ),
-                        SizedBox(
-                          height: mq.size.height * 0.025,
-                        ),
-                        SocialButton(
-                            icon: Icons.laptop,
-                            iconColor: Colors.black,
-                            label: 'Mi Github'),
-                        SizedBox(
-                          height: mq.size.height * 0.05,
-                        ),
-                        SocialButton(
-                            url: 'https://www.instagram.com/canogumucio/',
-                            icon: Icons.photo_camera,
-                            iconColor: Colors.orange,
-                            label: 'Mi instagram'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
+        ? buildIOSHomePage(appBar, mq, context)
+        : buildAndroidHomePage(appBar, mq, context);
 
     return adaptiveScaffold;
   }
+
+// android / windows scaffold
+  Scaffold buildAndroidHomePage(
+      PreferredSizeWidget appBar, MediaQueryData mq, BuildContext context) {
+    return Scaffold(
+      appBar: appBar,
+      drawer: Drawer(
+          child: Container(
+        constraints: BoxConstraints(
+          maxWidth: mq.size.width * 0.7,
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Text(
+                'More from me',
+                style: TextStyle(
+                  color: Theme.of(context).buttonColor,
+                  fontSize: mq.textScaleFactor * 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            NavLink(title: 'What can I do for you?', route: '/solution'),
+            NavLink(title: 'Expense Tracker', route: '/expenseTracker'),
+            NavLink(title: 'Todo List', route: '/todoList'),
+            NavLink(title: 'NodeJs API', route: '/nodeJs'),
+            NavLink(title: 'Image Uploader', route: '/imageUploader'),
+          ],
+        ),
+      )),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              constraints: BoxConstraints(
+                maxHeight: mq.size.height,
+                maxWidth: mq.size.width,
+              ),
+              child: Column(
+                children: [
+                  // space between appBar and profile pic
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.width * 0.01,
+                        vertical: mq.size.height * 0.01),
+                  ),
+                  Container(
+                    height: mq.size.height * 0.25,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.contain,
+                        image: AssetImage('./assets/images/profilepicture.png'),
+                      ),
+                    ),
+                  ),
+                  // end of the profile pic
+                  // more space
+                  SizedBox(
+                    height: mq.size.height * 0.01,
+                  ),
+                  // main headline
+                  Text(
+                    'About me:',
+                    style: TextStyle(
+                      fontSize: mq.textScaleFactor * 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                  // more space
+
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: mq.size.width * 0.1,
+                      vertical: mq.size.height * 0.005,
+                    ),
+                    child: Text(
+                      'I\'m a front end developer that uses Flutter to develop web, mobile and desktop apps.\n \n'
+                      'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones móviles, web y desktop.',
+                      style: TextStyle(fontSize: mq.textScaleFactor * 15),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: mq.size.height * 0.025,
+                  ),
+                  SocialButton(
+                    icon: Icons.laptop,
+                    label: 'Mi Github',
+                  ),
+                  SizedBox(
+                    height: mq.size.height * 0.05,
+                  ),
+                  SocialButton(
+                      url: 'https://www.instagram.com/canogumucio/',
+                      icon: Icons.photo_camera,
+                      label: 'Mi instagram'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // android and windows drawer
+  Drawer buildDrawer(MediaQueryData mq, BuildContext context) {
+    return Drawer(
+        child: Container(
+      constraints: BoxConstraints(
+        maxWidth: mq.size.width * 0.7,
+      ),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+            ),
+            child: Text(
+              'More from me',
+              style: TextStyle(
+                color: Theme.of(context).buttonColor,
+                fontSize: mq.textScaleFactor * 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          NavLink(title: 'What can I do for you?', route: '/solution'),
+          NavLink(title: 'Expense Tracker', route: '/expenseTracker'),
+          NavLink(title: 'Todo List', route: '/todoList'),
+          NavLink(title: 'NodeJs API', route: '/nodeJs'),
+          NavLink(title: 'Image Uploader', route: '/imageUploader'),
+        ],
+      ),
+    ));
+  }
+}
+
+CupertinoPageScaffold buildIOSHomePage(
+    PreferredSizeWidget appBar, MediaQueryData mq, BuildContext context) {
+  return CupertinoPageScaffold(
+    // appBar
+    navigationBar: appBar as ObstructingPreferredSizeWidget,
+    // main content
+    child: SafeArea(
+      child: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            // body main content from topbar to the footer
+            constraints: BoxConstraints(
+              maxHeight: mq.size.height,
+              maxWidth: mq.size.width,
+            ),
+            // Start of the actual content
+            child: Column(
+              children: [
+                // space between appBar and content
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: mq.size.width * 0.01,
+                      vertical: mq.size.height * 0.01),
+                ),
+                // Profile picture of me
+                Container(
+                  height: mq.size.height * 0.25,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      alignment: Alignment.center,
+                      fit: BoxFit.contain,
+                      image: AssetImage('./assets/images/profilepicture.png'),
+                    ),
+                  ),
+                ),
+                // finish of the profile picture
+                // space separating profile picture and content
+                SizedBox(
+                  height: mq.size.height * 0.01,
+                ),
+                // main content header
+
+                // more margin/padding
+                SizedBox(
+                  height: mq.size.height * 0.01,
+                ),
+                // about me description
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: mq.size.width * 0.1,
+                    vertical: mq.size.height * 0.01,
+                  ),
+                  child: Text(
+                    'I\'m a front end developer that uses Flutter to develop web, mobile and desktop apps.\n \n'
+                    'Soy un desarrollador front end que usa Flutter para desarrollar aplicaciones web, móviles y desktop.',
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+                // end of the description
+                // more space
+                SizedBox(
+                  height: mq.size.height * 0.025,
+                ),
+                // Links to my profiles
+                SocialButton(
+                    icon: CupertinoIcons.device_laptop,
+                    iconColor:
+                        CupertinoTheme.of(context).primaryContrastingColor,
+                    label: 'Github'),
+                SizedBox(
+                  height: mq.size.height * 0.05,
+                ),
+                SocialButton(
+                    url: 'https://www.instagram.com/canogumucio/',
+                    icon: Icons.photo_camera,
+                    iconColor:
+                        CupertinoTheme.of(context).primaryContrastingColor,
+                    label: 'Instagram'),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }
