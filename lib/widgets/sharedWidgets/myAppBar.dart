@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 class MyMaterialAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
   final Function appBarAction;
+  final Icon appBarIcon;
 
-  MyMaterialAppBar(this.title, this.appBarAction);
+  MyMaterialAppBar(this.title, this.appBarAction, this.appBarIcon);
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -16,9 +17,7 @@ class MyMaterialAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text(
-              title,
-            ),
+            middle: Text(title, style: Theme.of(context).textTheme.headline2),
             trailing: CupertinoButton(
               alignment: Alignment.center,
               child: Icon(CupertinoIcons.add),
@@ -28,16 +27,15 @@ class MyMaterialAppBar extends StatelessWidget with PreferredSizeWidget {
         : AppBar(
             title: Text(
               title,
+              style: Theme.of(context).textTheme.headline2,
             ),
             centerTitle: true,
             actions: [
               IconButton(
                 onPressed: () => appBarAction,
-                icon: Icon(
-                  Icons.add,
-                ),
+                icon: appBarIcon,
               ),
             ],
-          );
+          ) as PreferredSizeWidget;
   }
 }

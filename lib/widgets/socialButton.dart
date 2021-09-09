@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_io/io.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialButton extends StatelessWidget {
@@ -33,28 +34,48 @@ class SocialButton extends StatelessWidget {
 // button container
   TextButton buildSocialButton(MediaQueryData mq, BuildContext context) {
     return TextButton(
-        onPressed: () => _launchURL(url),
-        child: Center(child: buildButtonRow(mq, context)),
-        style: ButtonStyle(
-            elevation: MaterialStateProperty.all(3),
-            overlayColor: MaterialStateProperty.all(Colors.grey[100]),
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            foregroundColor: MaterialStateProperty.all(Color(0xFF00028)),
-            padding: MaterialStateProperty.all(
-              EdgeInsets.symmetric(
-                  vertical: mq.size.height * 0.01,
-                  horizontal: mq.size.width * 0.1),
-            ),
-            textStyle: MaterialStateProperty.all(TextStyle(fontSize: 24))));
+      onPressed: () => _launchURL(url),
+      child: Center(
+        child: buildButtonRow(mq, context),
+      ),
+      style: ButtonStyle(
+        alignment: Alignment.topLeft,
+        elevation: MaterialStateProperty.all(3),
+        overlayColor: MaterialStateProperty.all(Colors.grey[100]),
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+        foregroundColor: MaterialStateProperty.all(
+          Color(0xFF00028),
+        ),
+        padding: MaterialStateProperty.all(
+          EdgeInsets.symmetric(
+              vertical: mq.size.height * 0.01,
+              horizontal: mq.size.width * 0.05),
+        ),
+        textStyle: MaterialStateProperty.all(
+          TextStyle(
+            fontSize: 24,
+          ),
+        ),
+      ),
+    );
   }
 
   // button content, icon + title
 
   Row buildButtonRow(MediaQueryData mq, BuildContext context) {
+    determineIcon() {
+      if (Platform.isWindows || Platform.isMacOS || Platform.isLinux == true) {
+        return Icon(icon, color: iconColor, size: mq.size.height * 0.05);
+      } else {
+        return Icon(icon, color: iconColor, size: mq.size.width * 0.075);
+      }
+    }
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, color: iconColor, size: mq.size.width * 0.075),
+        determineIcon(),
         SizedBox(
           width: mq.size.width * 0.01,
           height: mq.size.height * 0.01,

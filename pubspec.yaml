@@ -11,10 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   firebase_core: ^1.2.1
   cloud_firestore: ^2.2.1
@@ -26,6 +22,9 @@ dependencies:
   file_picker: ^3.0.2+2
   intl: ^0.17.0
   universal_io: ^2.0.4
+  carousel_slider: ^4.0.0
+  expandable: ^5.0.1
+  
   
 dev_dependencies:
   flutter_test:
@@ -46,18 +45,32 @@ flutter:
     - assets/images/
 
 fonts:
-    - family: Lemonada
-      fonts: 
-        - asset: assets/fonts/Lemonada-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Lemonada-Medium.ttf
-        - asset: assets/fonts/Lemonada-Regular.ttf
-    - family: Kufam
-      fonts: 
-        - asset: assets/fonts/Kufam-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Kufam-Medium.ttf
-        - asset: assets/fonts/Kufam-Regular.ttf
+  - family: Raleway
+    fonts:
+      - asset: assets/fonts/Raleway-Regular.ttf
+      - asset: assets/fonts/Raleway-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Raleway-Black.ttf
+        weight: 900
+  - family: RobotoCondensed
+    fonts:
+      - asset: assets/fonts/RobotoCondensed-Regular.ttf
+      - asset: assets/fonts/RobotoCondensed-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/RobotoCondensed-Light.ttf
+        weight: 300
+      - asset: assets/fonts/RobotoCondensed-Italic.ttf
+        style: italic
+  - family: Lemonada
+    fonts: 
+      - asset: assets/fonts/Lemonada-Bold.ttf
+      - asset: assets/fonts/Lemonada-Medium.ttf
+      - asset: assets/fonts/Lemonada-Regular.ttf
+  - family: Kufam
+    fonts: 
+      - asset: assets/fonts/Kufam-Bold.ttf
+      - asset: assets/fonts/Kufam-Medium.ttf
+      - asset: assets/fonts/Kufam-Regular.ttf
         
 
  

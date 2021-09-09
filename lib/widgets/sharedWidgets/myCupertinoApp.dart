@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hire_me/screens/cVitae.dart';
+import 'package:hire_me/screens/categoryScreen.dart';
 
 import 'package:hire_me/screens/expenseTracker.dart';
 import 'package:hire_me/screens/homepage.dart';
+import 'package:hire_me/screens/meals/mealDetails.dart';
+import 'package:hire_me/screens/meals/meals.dart';
 import 'package:hire_me/screens/notFound.dart';
 import 'package:hire_me/screens/nodeJs.dart';
 import 'package:hire_me/screens/imageUploader.dart';
@@ -15,11 +19,15 @@ class MyCupertinoApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
+        '/cv': (context) => CurriculumScreen(),
         '/todoList': (context) => TodoList(),
         '/nodeJs': (context) => NodeJs(),
         '/imageUploader': (context) => ImageUploader(),
         '/solution': (context) => Solution(),
         '/expenseTracker': (context) => ExpenseTracker(),
+        '/meals': (context) => Meals(),
+        CategoryScreen.routeName: (context) => CategoryScreen(),
+        MealDetails.routeName: (context) => MealDetails(),
         '/notFound': (context) => NotFound(),
       },
       theme: CupertinoThemeData(
@@ -28,6 +36,9 @@ class MyCupertinoApp extends StatelessWidget {
         primaryColor: Color.fromRGBO(255, 223, 96, 1),
         primaryContrastingColor: Color.fromRGBO(124, 175, 196, 1),
         textTheme: CupertinoTextThemeData(
+          navTitleTextStyle: TextStyle(
+            color: Color.fromRGBO(255, 255, 255, 1),
+          ),
           primaryColor: Color.fromRGBO(255, 255, 255, 1),
           actionTextStyle: TextStyle(
             color: Color.fromRGBO(76, 92, 104, 1),

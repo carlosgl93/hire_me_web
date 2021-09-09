@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:hire_me/screens/expenseTracker.dart';
 
 class NavLink extends StatelessWidget {
-  final String title;
-  final String route;
+  String? title;
+  Widget? screen;
 
-  NavLink({this.title = 'link here', this.route = '/notFound'});
+  NavLink(this.title, this.screen);
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +20,17 @@ class NavLink extends StatelessWidget {
 
     return ListTile(
       focusColor: Color.fromRGBO(221, 161, 94, 1),
-      hoverColor: Theme.of(context).accentColor,
+      hoverColor: Theme.of(context).primaryColor,
 
       title: Text(
-        title,
-        style: TextStyle(
-            fontSize: mq.textScaleFactor * 15,
-            color: Colors.black,
-            fontWeight: FontWeight.normal),
+        title as String,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
       // re route funtion in an anonymous func
-      onTap: () => Navigator.pushNamed(context, route),
+      onTap: () {
+        // Navigator.pushNamed(context, route);
+        Get.to(screen);
+      },
     );
   }
 }

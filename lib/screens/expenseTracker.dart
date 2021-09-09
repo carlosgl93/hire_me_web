@@ -94,11 +94,10 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Text('Show Chart',
-              style: TextStyle(
-                fontSize: mq.textScaleFactor * 15,
-                fontWeight: FontWeight.bold,
-              )),
+          child: Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.headline3,
+          ),
         ),
         Switch.adaptive(
           value: _showChart,
@@ -136,24 +135,19 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    final isLandscape = mq.orientation == Orientation.landscape;
-
-    //PreferredSizeWidget type to avoid error of preferredsizewidget
-    final PreferredSizeWidget appBar = (Platform.isIOS
+  _buildAppBar(MediaQueryData mq) {
+    return (Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text(
               'Expense Tracker',
-              style: TextStyle(color: Colors.white),
+              style: Theme.of(context).textTheme.headline2,
             ),
             trailing: CupertinoButton(
               padding: EdgeInsets.only(bottom: mq.size.height * 0.005),
               alignment: Alignment.center,
               child: Icon(
                 CupertinoIcons.add,
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
               ),
               onPressed: () => _startAddNewTransaction(context),
             ),
@@ -161,10 +155,7 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
         : AppBar(
             title: Text(
               'Expense Tracker',
-              style: TextStyle(
-                fontSize: mq.textScaleFactor * 15,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headline2,
             ),
             centerTitle: true,
             actions: [
@@ -174,6 +165,15 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
               ),
             ],
           )) as PreferredSizeWidget;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    final isLandscape = mq.orientation == Orientation.landscape;
+
+    //PreferredSizeWidget type to avoid error of preferredsizewidget
+    final PreferredSizeWidget appBar = _buildAppBar(mq);
 
     // trasactionList widget
     final transactionListWidget = Container(
